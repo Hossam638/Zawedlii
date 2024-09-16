@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zawedlii</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        header {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            text-align: right;
+            color: #fff;
+        }
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+        .logo {
+            font-size: 48px;
+            font-weight: bold;
+        }
+        .subtitle {
+            font-size: 18px;
+            color: #fff;
+            margin-top: 5px;
+        }
+        main {
+            text-align: center;
+            background-color: #d32f2f;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .login-form, .survey-form, .thank-you, .signup-form {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .login-form h1, .survey-form h1, .thank-you h1, .signup-form h1 {
+            margin-top: 0;
+            font-size: 24px;
+        }
+        .login-form input, .survey-form input, .signup-form input, .signup-form select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .login-form input::placeholder, .survey-form input::placeholder, .signup-form input::placeholder {
+            color: #aaa;
+        }
+        .login-form .login-btn, .survey-form button, .signup-form button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            color: #fff;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+        .login-form .login-btn {
+            background-color: #d32f2f;
+        }
+        .facebook-btn {
+            background-color: #3b5998;
+            color: #fff;
+        }
+        .google-btn {
+            background-color: #db4437;
+            color: #fff;
+        }
+        .social-login button img {
+            margin-right: 10px;
+        }
+        .survey-form .option {
+            margin: 10px 0;
+        }
+        .survey-form .option input {
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #b71c1c;
+        }
+        #error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        .thank-you {
+            text-align: center;
+        }
+        .signup-form select {
+            font-size: 16px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <div class="logo">Zawedlii</div>
+            <div class="subtitle">نورت مكانك يا مدير</div>
+        </div>
+    </header>
+    <main id="mainContent">
+        <!-- صفحة تسجيل الدخول -->
+        <section class="login-form" id="loginFormSection">
+            <h1>تسجيل الدخول</h1>
+            <form id="loginForm">
+                <input type="email" id="email" name="email" placeholder="أدخل بريدك الإلكتروني" required>
+                <input type="password" id="password" name="password" placeholder="أدخل كلمة السر" required>
+                <button type="submit" class="login-btn">تسجيل الدخول</button>
+            </form>
+            <div class="social-login">
+                <button class="facebook-btn" onclick="handleFacebookLogin()">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook Logo" width="20" height="20">
+                    تسجيل الدخول عبر فيسبوك
+                </button>
+                <button class="google-btn" onclick="handleGoogleLogin()">
+                    تسجيل الدخول عبر جوجل
+                </button>
+            </div>
+            <button class="login-btn" onclick="showSignupForm()">إنشاء حساب</button>
+        </section>
+
+        <!-- صفحة الاستبيان -->
+        <section class="survey-form" id="surveyFormSection" style="display: none;">
+            <h1>ما هدفك من دخول موقعنا؟</h1>
+            <form id="surveyForm">
+                <div class="option">
+                    <input type="checkbox" id="option1" name="goal" value="تزويد متابعين">
+                    <label for="option1">تزويد متابعين</label>
+                </div>
+                <div class="option">
+                    <input type="checkbox" id="option2" name="goal" value="تزويد ريأكت">
+                    <label for="option2">تزويد ريأكت</label>
+                </div>
+                <div class="option">
+                    <input type="checkbox" id="option3" name="goal" value="تزويد كومنتات">
+                    <label for="option3">تزويد كومنتات</label>
+                </div>
+                <div class="option">
+                    <input type="checkbox" id="option4" name="goal" value="تصميم بوستر">
+                    <label for="option4">تصميم بوستر</label>
+                </div>
+                <div class="option">
+                    <input type="checkbox" id="option5" name="goal" value="رقم فيك">
+                    <label for="option5">رقم فيك</label>
+                </div>
+                <button type="submit">إرسال</button>
+            </form>
+            <p id="error-message"></p>
+        </section>
+
+        <!-- صفحة الشكر -->
+        <section class="thank-you" id="thankYouSection" style="display: none;">
+            <h1>الموقع تحت الإنشاء</h1>
+            <p>نحن نعمل على تحسين الموقع حالياً. إذا كان لديك أي طلب، يمكنك التواصل معنا على رقم البشمهندس:</p>
+            <p class="phone-number">01225737479</p>
+        </section>
+
+        <!-- صفحة إنشاء الحساب -->
+        <section class="signup-form" id="signupFormSection" style="display: none;">
+            <h1>إنشاء حساب</h1>
+            <form id="signupForm">
+                <input type="text" id="fullName" name="fullName" placeholder="أدخل اسمك الكامل" required>
+                <select id="governorate" name="governorate" required>
+                    <option value="" disabled selected>اختر المحافظة</option>
+                    <option value="القاهرة">القاهرة</option>
+                    <option value="الجيزة">الجيزة</option>
+                    <option value="الإسكندرية">الإسكندرية</option>
+                    <option value="بورسعيد">بورسعيد</option>
+                    <option value="السويس">السويس</option>
+                    <option value="دمياط">دمياط</option>
+                    <option value="الدقهلية">الدقهلية</option>
+                    <option value="الشرقية">الشرقية</option>
+                    <option value="القليوبية">القليوبية</option>
+                    <option value="كفر الشيخ">كفر الشيخ</option>
+                    <option value="الغربية">الغربية</option>
+                    <option value="المنوفية">المنوفية</option>
+                    <option value="البحيرة">البحيرة</option>
+                    <option value="الإسماعيلية">الإسماعيلية</option>
+                    <option value="بني سويف">بني سويف</option>
+                    <option value="الفيوم">الفيوم</option>
+                    <option value="المنيا">المنيا</option>
+                    <option value="أسيوط">أسيوط</option>
+                    <option value="سوهاج">سوهاج</option>
+                    <option value="قنا">قنا</option>
+                    <option value="أسوان">أسوان</option>
+                    <option value="الأقصر">الأقصر</option>
+                    <option value="البحر الأحمر">البحر الأحمر</option>
+                    <option value="الوادي الجديد">الوادي الجديد</option>
+                    <option value="مطروح">مطروح</
